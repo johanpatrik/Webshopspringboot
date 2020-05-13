@@ -8,8 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class WebshopspringbootApplication {
 
-    @Autowired
-    PopulateDatabase populateDatabase;
+    // Behövs ej???
+  //  @Autowired
+  //  PopulateDatabase populateDatabase;
 
     public static void main(String[] args) {
         SpringApplication.run(WebshopspringbootApplication.class, args);
