@@ -1,10 +1,37 @@
 package com.g09.webshopspringboot.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.g09.webshopspringboot.domain.Record;
+import com.g09.webshopspringboot.service.RecordService;
+import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("records")
 public class RecordController {
+
+    RecordService recordService;
+
+    @Autowired
+    public RecordController(RecordService recordService) {
+        this.recordService = recordService;
+    }
+
+    @GetMapping()
+    public List<Record> getRecords(){
+        return recordService.getRecords();
+    }
+
+    @GetMapping("/{id}")
+    public Record getRecord(@PathVariable Long id){
+        return recordService.findById(id);
+    }
+
+    @GetMapping("/search/{searchWord}")
+    public List<Record> getFilteredRecords(@PathVariable String searchWord){
+        return recordService.getFilteredRecords(searchWord);
+    }
 }
