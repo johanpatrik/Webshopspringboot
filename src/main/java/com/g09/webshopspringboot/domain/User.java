@@ -1,15 +1,18 @@
 package com.g09.webshopspringboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class User {
 
     private Role role;
@@ -32,54 +35,6 @@ public class User {
         this.role = role;
     }
 
-    public User() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getFormattedTotalSpent() {
         int sum = getTotalSpent();
         NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("sv","SE"));
@@ -88,7 +43,7 @@ public class User {
     }
 
     public int getTotalSpent() {
-        return orders.parallelStream().mapToInt(order -> order.getOrderTotal()).sum();
+        return orders.parallelStream().mapToInt(OrderPurchase::getOrderTotal).sum();
     }
 
     public List<OrderPurchase> getOrders() {

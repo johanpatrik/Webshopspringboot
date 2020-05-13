@@ -1,5 +1,8 @@
 package com.g09.webshopspringboot.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +12,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Record {
 
     @Id
@@ -26,51 +31,9 @@ public class Record {
         this.price = price;
     }
 
-    public Record() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
     public String getPriceFormatted(){
     NumberFormat nf = NumberFormat.getInstance(new Locale("sv", "SE"));
     return nf.format(this.price);
     }
-
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImgURL() {
-        return imgURL;
-    }
-
-    public void setImgURL(String imgURL) {
-        this.imgURL = imgURL;
-    }
-
 }
 

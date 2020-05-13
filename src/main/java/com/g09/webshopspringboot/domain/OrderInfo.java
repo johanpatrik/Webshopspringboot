@@ -1,12 +1,16 @@
 package com.g09.webshopspringboot.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 @Entity
-public class OrderInfo implements Serializable {
+@Data
+@NoArgsConstructor
+public class OrderInfo{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,25 +26,6 @@ public class OrderInfo implements Serializable {
         this.quantity = quantity;
     }
 
-    public OrderInfo() {
-
-    }
-
-    public Record getRecord() {
-        return record;
-    }
-
-    public void setRecord(Record record) {
-        this.record = record;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     /**
      * Metoden räknar ut summan av antalet av en specifik produkt
@@ -64,17 +49,4 @@ public class OrderInfo implements Serializable {
         String formmated = nf.format(number);
         return formmated.substring(0, formmated.lastIndexOf(","));
     }
-
-    public OrderPurchase getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderPurchase order) {
-        this.order = order;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
 }
