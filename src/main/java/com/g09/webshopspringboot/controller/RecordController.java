@@ -20,16 +20,19 @@ public class RecordController {
         this.recordService = recordService;
     }
 
+    @CrossOrigin
     @GetMapping()
     public List<Record> getRecords(){
         return recordService.getRecords();
     }
 
+    @CrossOrigin
     @GetMapping("/{id}")
     public Record getRecord(@PathVariable Long id){
         return recordService.findById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/search/{searchWord}")
     public List<Record> getFilteredRecords(@PathVariable String searchWord){
         return recordService.getFilteredRecords(searchWord);
