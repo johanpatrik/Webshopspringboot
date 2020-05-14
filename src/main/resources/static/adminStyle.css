@@ -1,0 +1,7 @@
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:focus {
+    background-color: #007bff !important;
+}
