@@ -16,4 +16,5 @@
 
 .clickable-row-i {
     cursor: default;
+    outline: none;
 }
