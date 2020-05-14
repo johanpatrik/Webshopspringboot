@@ -31,9 +31,5 @@ public class Record {
         this.price = price;
     }
 
-    public String getPriceFormatted(){
-    NumberFormat nf = NumberFormat.getInstance(new Locale("sv", "SE"));
-    return nf.format(this.price);
-    }
 }
 

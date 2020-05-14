@@ -2,16 +2,10 @@ package com.g09.webshopspringboot.service;
 
 import com.g09.webshopspringboot.domain.User;
 import com.g09.webshopspringboot.repository.UserRepository;
-import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
