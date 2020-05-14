@@ -1,19 +1,13 @@
 $(document).ready(function () {
 
-/*    if (localStorage.length !== 0 || localStorage.length !== null) {
-        loadOrderTable();
-    }*/
+    let orders = JSON.parse(localStorage.orders || "[]");
+    loadOrderTable();
 
     fetch("http://localhost:8080/users")
         .then(response => response.json())
         .then(data => {
-            getAccessToUsers(data);
+            loadUserTable(data);
         })
-
-    function getAccessToUsers(data) {
-        console.log(data);
-        loadUserTable(data);
-    }
 
 
     function loadUserTable(data) {
@@ -21,6 +15,7 @@ $(document).ready(function () {
         let customers = data.filter(function (user) {
             return user.role !== 'ADMIN';
         });
+
 
         customers.forEach(customer => {
             html += "<tr class='clickable-row' tabindex='0' id=" + customer.id + "><td>" + customer.userName + "</td>" +
@@ -39,18 +34,15 @@ $(document).ready(function () {
     function getOrderByUser() {
         let id = $(this).attr("id");
 
-        localStorage.clear();
         console.log("http://localhost:8080/orders/"+ id)
         fetch("http://localhost:8080/orders/"+ id)
             .then(response => response.json())
             .then(data => localStorage.setItem('orders', JSON.stringify(data)))
-        window.location.replace("orderOverview.html")
+        /*window.location.replace("orderOverview.html")*/
     }
 
     function loadOrderTable() {
         let html1 = "";
-        let orders = JSON.parse(localStorage.getItem('orders'));
-
         orders.forEach(order => {
             html1 += "<tr class='clickable-row' tabindex='0' id=" + order.id + ">" +
                 "<td>" + order.id + "</td>" +
@@ -60,6 +52,7 @@ $(document).ready(function () {
                 "</tr>"
         })
         $(".tbody-order").html(html1);
+
         /*$('.clickable-row').click();*/
     }
 
