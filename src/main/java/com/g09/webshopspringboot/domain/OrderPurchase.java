@@ -1,6 +1,7 @@
 package com.g09.webshopspringboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -60,6 +61,7 @@ public class OrderPurchase implements Serializable {
      *
      * @return: summan för en beställning
      */
+    @JsonProperty
     public String formattedOrderTotal() {
 
         return formatNumbers(orderTotal) + " SEK";
@@ -70,6 +72,7 @@ public class OrderPurchase implements Serializable {
      *
      * @return: antalet produkter i en order
      */
+    @JsonProperty("itemsQuantity")
     public String calculateItemsQuantity() {
         int qty = items.parallelStream().mapToInt(item -> item.getQuantity()).sum();
         return formatNumbers(qty);

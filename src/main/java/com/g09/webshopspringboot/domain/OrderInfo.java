@@ -1,5 +1,7 @@
 package com.g09.webshopspringboot.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +20,7 @@ public class OrderInfo{
     @OneToOne(cascade = CascadeType.MERGE)
     private Record record;
     private int quantity;
+    @JsonIgnore
     @ManyToOne()
     private OrderPurchase order;
 
@@ -32,6 +35,7 @@ public class OrderInfo{
      *
      * @return: summa
      */
+    @JsonProperty
     public String getTotalPriceFormatted() {
         return formatNumbers(getTotalPrice()) + " SEK";
     }
@@ -40,6 +44,7 @@ public class OrderInfo{
         return this.quantity * this.record.getPrice();
     }
 
+    @JsonProperty
     public String formattedQuantity() {
         return formatNumbers(getQuantity());
     }
