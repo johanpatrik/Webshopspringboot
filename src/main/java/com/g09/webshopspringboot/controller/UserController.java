@@ -4,10 +4,7 @@ import com.g09.webshopspringboot.domain.User;
 import com.g09.webshopspringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +32,14 @@ public class UserController {
     @GetMapping
     public List<User> getAllUsers(){
         return userService.selectAllUsers();
+    }
+
+    @GetMapping
+    public String orderConfirmation(@RequestBody User user){
+
+        if(userService.addOrder(user)){
+            return "confirmation";
+        }
+        return "Shop";
     }
 }
