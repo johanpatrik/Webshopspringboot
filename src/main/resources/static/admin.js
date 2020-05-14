@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     let orders = JSON.parse(localStorage.orders || "[]");
     loadOrderTable();
 
@@ -29,16 +30,14 @@ $(document).ready(function () {
         $('.clickable-row').click(getOrderByUser);
     }
 
-    loadOrderTable();
-
     function getOrderByUser() {
+
         let id = $(this).attr("id");
 
-        console.log("http://localhost:8080/orders/"+ id)
         fetch("http://localhost:8080/orders/"+ id)
             .then(response => response.json())
             .then(data => localStorage.setItem('orders', JSON.stringify(data)))
-        /*window.location.replace("orderOverview.html")*/
+            .then(() => window.location.replace("orderOverview.html"))
     }
 
     function loadOrderTable() {
