@@ -34,12 +34,13 @@ public class UserController {
         return userService.selectAllUsers();
     }
 
-    @GetMapping
+    @GetMapping("/abc/defg/hjkl/mno")
     public String orderConfirmation(@RequestBody User user){
 
-        if(userService.addOrder(user)){
+       /* if(userService.addOrder(user)){
             return "confirmation";
-        }
+        }*/
+
         return "Shop";
     }
 }
