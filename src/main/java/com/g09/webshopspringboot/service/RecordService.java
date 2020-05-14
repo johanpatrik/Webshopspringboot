@@ -2,12 +2,10 @@ package com.g09.webshopspringboot.service;
 
 import com.g09.webshopspringboot.domain.Record;
 import com.g09.webshopspringboot.repository.RecordRepository;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
