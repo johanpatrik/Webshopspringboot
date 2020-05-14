@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,12 +25,6 @@ public class UserService {
 
 
     public String addUser(User user) {
-
-        /*
-        Optional<User> user1 = Optional.ofNullable(user);
-        user1.ifPresent(user2 -> user2.getUserName().compareTo(user.getUserName()));
-        userRepository.save(user);
-        */
 
         if (userRepository.findByUserName(user.getUserName()).isPresent()) {
             return "register";
@@ -48,5 +43,9 @@ public class UserService {
         else {
             return "login";
         }
+    }
+
+    public List<User> selectAllUsers() {
+        return userRepository.findAll();
     }
 }
