@@ -7,7 +7,7 @@ $(document).ready(function () {
     loadItemTable();
 
 
-    fetch("http://localhost:8080/users")
+    fetch("http://localhost:8080/users/customers")
         .then(response => response.json())
         .then(data => {
             loadUserTable(data);
@@ -16,10 +16,7 @@ $(document).ready(function () {
 
     function loadUserTable(data) {
         let html = "";
-        let customers = data.filter(function (user) {
-            return user.role !== 'ADMIN';
-        });
-
+        let customers = data;
 
         customers.forEach(customer => {
             html += "<tr class='clickable-row-u' tabindex='0' id=" + customer.id + "><td>" + customer.userName + "</td>" +

@@ -1,9 +1,6 @@
 package com.g09.webshopspringboot.service;
 
-import com.g09.webshopspringboot.domain.LoginResponse;
-import com.g09.webshopspringboot.domain.OrderInfo;
-import com.g09.webshopspringboot.domain.OrderPurchase;
-import com.g09.webshopspringboot.domain.User;
+import com.g09.webshopspringboot.domain.*;
 import com.g09.webshopspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -45,6 +42,10 @@ public class UserService {
             return new LoginResponse(false,null);
         }
 
+    }
+
+    public List<User> selectAllCustomers() {
+        return userRepository.findAllByRoleIsNot(Role.ADMIN);
     }
 
     public List<User> selectAllUsers() {

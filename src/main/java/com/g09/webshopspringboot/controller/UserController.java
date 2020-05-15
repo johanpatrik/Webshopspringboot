@@ -41,6 +41,11 @@ public class UserController {
         return userService.selectAllUsers();
     }
 
+    @GetMapping("customers")
+    public List<User> getAllCustomers(){
+        return userService.selectAllCustomers();
+    }
+
     @GetMapping("/abc/defg/hjkl/mno")
     public String orderConfirmation(@RequestBody User user){
 
