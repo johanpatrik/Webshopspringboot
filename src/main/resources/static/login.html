@@ -13,7 +13,7 @@
 
 <body>
 
-<form class="login-form">
+<div class="login-form">
     <img src="images/logo.png" class="logo-small" alt="logo">
     <div class="login-info">
         <label class="login-label">Username</label><br/>
@@ -23,9 +23,10 @@
         <label class="login-label">Password</label><br/>
         <input id="password-input" type="password" maxlength="20" class="login-input"/>
     </div>
-    <button type="submit" class="btn login-btn">Login</button>
-    <button class="btn login-btn">Register</button>
-</form>
+    <h5 id="wrong-label">Wrong username or password</h5>
+    <button type="submit" id="login-btn" class="btn login-btn">Login</button>
+    <button id="register-btn" class="btn login-btn">Register</button>
+</div>
 
 <script src="main.js"></script>
 </body>

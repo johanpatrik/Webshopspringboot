@@ -2,7 +2,28 @@ $(document).ready(function () {
 
 
 
+    $('#login-btn').click(function () {
+        let url = 'http://localhost:8080/users/username/' + $('#username-input').val() + '/pwd/' + $('#password-input').val();
+        $.getJSON(url,
+            function(data) {
+            console.log(data);
+               if (data.verified) {
+                   if (data.role === 'ADMIN') {
+                       window.location.href = 'userOverview.html'
+                   } else {
+                       window.location.href = 'shop.html'
+                   }
+               } else {
+                   document.getElementById("wrong-label").style.visibility = "visible";
+                   $('#password-input').val("");
+               }
+            });
 
+    });
+
+    $('#register-btn').click(function () {
+    window.location.href = 'register.html'
+    });
 
     //present all records
     $.getJSON("http://localhost:8080/records",

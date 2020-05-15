@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -33,12 +34,10 @@ public class UserService {
         }
     }
 
-    public String verifyUser(String userName, String password) {
-        if (userRepository.findByUserNameAndPassword(userName, password).isPresent()) {
-            return "shop";
-        } else {
-            return "login";
-        }
+    //Kontrollerar om username och password finns i databasen?
+    public Optional<User> verifyUser(String userName, String password) {
+       return userRepository.findByUserNameAndPassword(userName, password);
+
     }
 
     public List<User> selectAllUsers() {
