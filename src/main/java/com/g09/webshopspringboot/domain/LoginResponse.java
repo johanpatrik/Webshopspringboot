@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginResponse {
 
-    boolean verified;
-    Role role;
+    private boolean verified;
+    private User user;
 
 
     public boolean isVerified() {
@@ -17,19 +17,20 @@ public class LoginResponse {
         this.verified = verified;
     }
 
-    public Role getRole() {
-        return role;
-    }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public LoginResponse(boolean verified, Role role) {
+    public LoginResponse(boolean verified, User user) {
         this.verified = verified;
-        this.role = role;
+        this.user = user;
     }
 
     public LoginResponse() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

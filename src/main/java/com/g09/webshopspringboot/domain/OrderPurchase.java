@@ -23,6 +23,7 @@ public class OrderPurchase implements Serializable {
     private List<OrderInfo> items = new ArrayList<>();
     @ManyToOne()
     private User user;
+    @JsonIgnore
     private int orderTotal;
 
     private Date date;
@@ -63,7 +64,6 @@ public class OrderPurchase implements Serializable {
      */
     @JsonProperty
     public String formattedOrderTotal() {
-
         return formatNumbers(orderTotal) + " SEK";
     }
 

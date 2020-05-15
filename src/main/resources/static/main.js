@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
 
-
     $('#login-btn').click(function () {
-        let url = 'http://localhost:8080/users/username/' + $('#username-input').val() + '/pwd/' + $('#password-input').val();
+        let url = 'http://localhost:8080/users/login?username=' + $('#username-input').val() + '&password=' + $('#password-input').val();
         $.getJSON(url,
             function(data) {
             console.log(data);
                if (data.verified) {
-                   if (data.role === 'ADMIN') {
+                   localStorage.setItem("user", JSON.stringify(data.user));
+                   if (data.user.role === 'ADMIN') {
                        window.location.href = 'userOverview.html'
                    } else {
                        window.location.href = 'shop.html'

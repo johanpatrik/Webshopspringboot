@@ -1,5 +1,6 @@
 package com.g09.webshopspringboot.service;
 
+import com.g09.webshopspringboot.domain.LoginResponse;
 import com.g09.webshopspringboot.domain.OrderInfo;
 import com.g09.webshopspringboot.domain.OrderPurchase;
 import com.g09.webshopspringboot.domain.User;
@@ -35,8 +36,14 @@ public class UserService {
     }
 
     //Kontrollerar om username och password finns i databasen?
-    public Optional<User> verifyUser(String userName, String password) {
-       return userRepository.findByUserNameAndPassword(userName, password);
+    public LoginResponse verifyUser(String userName, String password) {
+        Optional<User> optionalUser = userRepository.findByUserNameAndPassword(userName, password);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return new LoginResponse(true, user);
+        } else {
+            return new LoginResponse(false,null);
+        }
 
     }
 

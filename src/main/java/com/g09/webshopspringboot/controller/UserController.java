@@ -30,15 +30,9 @@ public class UserController {
     }
 
     @CrossOrigin
-    @GetMapping("username/{username}/pwd/{password}")
-    public LoginResponse verifyUser(@PathVariable String username, @PathVariable String password){
-
-        Optional<User> user = userService.verifyUser(username,password);
-        if (user.isPresent()) {
-            return new LoginResponse(true,user.get().getRole());
-        } else {
-            return new LoginResponse(false,null);
-        }
+    @GetMapping("login")
+    public LoginResponse verifyUser(@RequestParam String username, @RequestParam String password){
+        return userService.verifyUser(username,password);
     }
 
     @CrossOrigin
