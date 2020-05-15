@@ -3,6 +3,7 @@ package com.g09.webshopspringboot.service;
 import com.g09.webshopspringboot.domain.User;
 import com.g09.webshopspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

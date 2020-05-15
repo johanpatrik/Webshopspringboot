@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+
+
+
+
     //present all records
     $.getJSON("http://localhost:8080/records",
         function(data) {
@@ -12,14 +16,15 @@ $(document).ready(function () {
             });
         });
 
+    //show cart
     $('#cart-btn').click(function () {
         document.getElementById("myForm").style.display = "block";
     });
 
+    //hide cart
     $('#cart-cancel-btn').click(function () {
         document.getElementById("myForm").style.display = "none";
     });
-
 
     //store currentRecord in local storage
     function storeCurrentRecord(record) {
