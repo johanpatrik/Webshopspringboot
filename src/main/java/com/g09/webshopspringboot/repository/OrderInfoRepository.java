@@ -1,13 +1,13 @@
 package com.g09.webshopspringboot.repository;
 
-import com.g09.webshopspringboot.domain.OrderPurchase;
+import com.g09.webshopspringboot.domain.OrderInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface OrderPurchaseRepository extends JpaRepository<OrderPurchase, Long> {
+public interface OrderInfoRepository extends JpaRepository<OrderInfo, Long> {
 
-    List<OrderPurchase> findAllByUserId(Long userId);
+    List<OrderInfo> findAllByOrderId(Long orderId);
 }
