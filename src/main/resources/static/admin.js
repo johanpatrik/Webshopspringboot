@@ -6,6 +6,10 @@ $(document).ready(function () {
     loadOrderTable();
     loadItemTable();
 
+    $('#logout-btn').click(function () {
+        console.log("Hej")
+    });
+
 
     fetch("http://localhost:8080/users/customers")
         .then(response => response.json())

@@ -52,6 +52,7 @@ public class UserService {
     public String logOut(HttpSession session) {
         String name = currentSession.getUser().getFirstName() + " " + currentSession.getUser().getLastName();
         session.invalidate();
+        System.out.println(name + " has been logged out.");
         return name + " has been logged out.";
     }
 
