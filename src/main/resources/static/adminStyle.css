@@ -18,3 +18,13 @@
     cursor: default;
     outline: none;
 }
+
+.admin {
+    font-family: 'Work Sans', sans-serif;
+    color: #007bff !important;
+    display: inline;
+}
+
+.header {
+    padding-top: 10px;
+}

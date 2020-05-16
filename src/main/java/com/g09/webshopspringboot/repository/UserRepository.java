@@ -2,7 +2,6 @@ package com.g09.webshopspringboot.repository;
 
 import com.g09.webshopspringboot.domain.Role;
 import com.g09.webshopspringboot.domain.User;
-import org.hibernate.hql.spi.id.cte.CteValuesListBulkIdStrategy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

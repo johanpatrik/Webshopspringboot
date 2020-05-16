@@ -3,17 +3,16 @@ package com.g09.webshopspringboot.service;
 import com.g09.webshopspringboot.domain.*;
 import com.g09.webshopspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    private CurrentSession currentSession;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -37,6 +36,8 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findByUserNameAndPassword(userName, password);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            currentSession = new CurrentSession(user);
+            System.out.println(currentSession.getId());
             return new LoginResponse(true, user);
         } else {
             return new LoginResponse(false,null);
@@ -64,4 +65,13 @@ public class UserService {
         order.setUser(user);
         orderPurchaseRepository.save(order);
     } */
+
+
+    public CurrentSession getCurrentSession() {
+        return currentSession;
+    }
+
+    public void setCurrentSession(CurrentSession currentSession) {
+        this.currentSession = currentSession;
+    }
 }
