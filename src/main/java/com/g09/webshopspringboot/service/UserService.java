@@ -14,9 +14,11 @@ public class UserService {
     private UserRepository userRepository;
     private CurrentSession currentSession;
 
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, CurrentSession currentSession) {
         this.userRepository = userRepository;
+        this.currentSession = currentSession;
     }
 
 
@@ -36,8 +38,8 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findByUserNameAndPassword(userName, password);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            currentSession = new CurrentSession(user);
-            System.out.println(currentSession.getId());
+            currentSession.setUser(user);
+            System.out.println(currentSession.getUser().getUserName());
             return new LoginResponse(true, user);
         } else {
             return new LoginResponse(false,null);
@@ -69,9 +71,5 @@ public class UserService {
 
     public CurrentSession getCurrentSession() {
         return currentSession;
-    }
-
-    public void setCurrentSession(CurrentSession currentSession) {
-        this.currentSession = currentSession;
     }
 }

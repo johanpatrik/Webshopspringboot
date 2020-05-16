@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@SessionScope
+@Component
 public class CurrentSession {
 
 
@@ -16,10 +18,7 @@ public class CurrentSession {
     private User user = null;
     private List<OrderInfo> cart = null;
 
-
-    public CurrentSession(User user) {
-        this.id = UUID.randomUUID().toString();
-        this.cart = new ArrayList<>();
+    public CurrentSession() {
     }
 
     public User getUser() {
@@ -28,6 +27,8 @@ public class CurrentSession {
 
     public void setUser(User user) {
         this.user = user;
+        this.id = UUID.randomUUID().toString();
+        this.cart = new ArrayList<>();
     }
 
     public List<OrderInfo> getCart() {

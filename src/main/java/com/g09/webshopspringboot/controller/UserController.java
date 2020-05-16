@@ -6,13 +6,15 @@ import com.g09.webshopspringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
 
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     public UserController(UserService userService){
@@ -54,8 +56,9 @@ public class UserController {
     }
 
     @GetMapping("logout")
-    public String logOutUser() {
-        userService.setCurrentSession(null);
+    public String logOutUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
         return "LOGGEDOUT";
     }
 }
