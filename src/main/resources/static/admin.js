@@ -3,35 +3,29 @@ $(document).ready(function () {
 
     let orders = JSON.parse(localStorage.orders || "[]");
     let items = JSON.parse(localStorage.items || "[]");
+    loadUserTable();
     loadOrderTable();
     loadItemTable();
 
-    $('#logout-btn').click(function () {
-        console.log("Hej")
-    });
 
+    function loadUserTable() {
+        fetch("http://localhost:8080/users/customers")
+            .then(response => response.json())
+            .then(data => {
+                let html = "";
+                let customers = data;
+                customers.forEach(customer => {
+                    html += "<tr class='clickable-row-u' tabindex='0' id=" + customer.id + "><td>" + customer.userName + "</td>" +
+                        "<td>" + customer.firstName + "</td>" +
+                        "<td>" + customer.lastName + "</td>" +
+                        "<td>" + customer.formattedTotalSpent + "</td>" +
+                        "<td>" + customer.role + "</td>" +
+                        "</tr>"
+                })
+                $(".tbody-user").html(html);
+                $('.clickable-row-u').click(getOrderByUser);
 
-    fetch("http://localhost:8080/users/customers")
-        .then(response => response.json())
-        .then(data => {
-            loadUserTable(data);
-        })
-
-
-    function loadUserTable(data) {
-        let html = "";
-        let customers = data;
-
-        customers.forEach(customer => {
-            html += "<tr class='clickable-row-u' tabindex='0' id=" + customer.id + "><td>" + customer.userName + "</td>" +
-                "<td>" + customer.firstName + "</td>" +
-                "<td>" + customer.lastName + "</td>" +
-                "<td>" + customer.formattedTotalSpent + "</td>" +
-                "<td>" + customer.role + "</td>" +
-                "</tr>"
-        })
-        $(".tbody-user").html(html);
-        $('.clickable-row-u').click(getOrderByUser);
+            });
     }
 
     function getOrderByUser() {
@@ -82,4 +76,12 @@ $(document).ready(function () {
         })
         $(".tbody-item").html(html2)
     }
+
+
+    $("#logout-btn").click(function () {
+        fetch("http://localhost:8080/users/logout")
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .then(() => window.location.href = "login.html");
+    })
 });

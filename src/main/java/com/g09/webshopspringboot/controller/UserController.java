@@ -1,6 +1,7 @@
 package com.g09.webshopspringboot.controller;
 
 import com.g09.webshopspringboot.domain.LoginResponse;
+import com.g09.webshopspringboot.domain.LogoutResponse;
 import com.g09.webshopspringboot.domain.User;
 import com.g09.webshopspringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,6 @@ public class UserController {
     @GetMapping("login")
     public LoginResponse verifyUser(@RequestParam String username, @RequestParam String password){
         return userService.verifyUser(username,password);
-
     }
 
     @CrossOrigin
@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping("logout")
-    public String logOutUser(HttpServletRequest request) {
+    public LogoutResponse logOutUser(HttpServletRequest request) {
         return userService.logOut(request.getSession());
     }
 }

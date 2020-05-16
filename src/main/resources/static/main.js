@@ -3,8 +3,7 @@ $(document).ready(function () {
 
     $('#login-btn').click(function () {
         let url = 'http://localhost:8080/users/login?username=' + $('#username-input').val() + '&password=' + $('#password-input').val();
-        $.getJSON(url,
-            function(data) {
+        $.getJSON(url, function(data) {
             console.log(data);
                if (data.verified) {
                    localStorage.setItem("user", JSON.stringify(data.user));
