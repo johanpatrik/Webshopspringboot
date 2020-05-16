@@ -1,10 +1,12 @@
 package com.g09.webshopspringboot.service;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.g09.webshopspringboot.domain.*;
 import com.g09.webshopspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +47,12 @@ public class UserService {
             return new LoginResponse(false,null);
         }
 
+    }
+
+    public String logOut(HttpSession session) {
+        String name = currentSession.getUser().getFirstName() + " " + currentSession.getUser().getLastName();
+        session.invalidate();
+        return name + " has been logged out.";
     }
 
     public List<User> selectAllCustomers() {

@@ -57,8 +57,6 @@ public class UserController {
 
     @GetMapping("logout")
     public String logOutUser(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        return "LOGGEDOUT";
+        return userService.logOut(request.getSession());
     }
 }
