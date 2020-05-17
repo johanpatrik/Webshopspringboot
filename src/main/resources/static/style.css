@@ -88,6 +88,24 @@ header {
     width: 100%;
 }
 
+/*Shop*/
+
+#logout-btn {
+    font-size: 14px;
+    background: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+}
+
+#logout-btn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#logout-btn:focus {
+    outline: none;
+}
 
 .cart-img {
     width: 30px;
@@ -131,8 +149,6 @@ header {
 }
 
 
-
-/*Index*/
 .record-img-top {
     width: 12em;
     height: 12em;

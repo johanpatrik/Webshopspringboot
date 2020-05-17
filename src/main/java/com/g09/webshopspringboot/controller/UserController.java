@@ -54,7 +54,7 @@ public class UserController {
 
         return "Shop";
     }
-
+    @CrossOrigin
     @GetMapping("logout")
     public LogoutResponse logOutUser(HttpServletRequest request) {
         return userService.logOut(request.getSession());
