@@ -12,10 +12,9 @@ import java.util.UUID;
 @Component
 public class CurrentSession {
 
-
     private String id = "unknown";
     private User user = null;
-    private List<OrderInfo> cart = null;
+    private List<CartItem> cart = null;
 
     public CurrentSession() {
     }
@@ -30,11 +29,11 @@ public class CurrentSession {
         this.cart = new ArrayList<>();
     }
 
-    public List<OrderInfo> getCart() {
+    public List<CartItem> getCart() {
         return cart;
     }
 
-    public void setCart(List<OrderInfo> cart) {
+    public void setCart(List<CartItem> cart) {
         this.cart = cart;
     }
 

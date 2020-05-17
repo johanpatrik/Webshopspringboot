@@ -92,7 +92,6 @@ $(document).ready(function () {
         <button class="add-To-Cart-Btn">Add To Cart</button>
         </div>
             </div>`);
-
     }
 
 
