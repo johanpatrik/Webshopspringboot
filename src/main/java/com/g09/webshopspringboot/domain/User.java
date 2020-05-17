@@ -1,6 +1,7 @@
 package com.g09.webshopspringboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -39,6 +40,8 @@ public class User {
         this.role = role;
     }
 
+
+    @JsonProperty("totalSpent")
     public String getFormattedTotalSpent() {
         int sum = getTotalSpent();
         NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("sv","SE"));
@@ -46,6 +49,7 @@ public class User {
         return formmated.substring(0,formmated.lastIndexOf(",")) + " SEK";
     }
 
+    @JsonIgnore
     public int getTotalSpent() {
         return orders.parallelStream().mapToInt(OrderPurchase::getOrderTotal).sum();
     }

@@ -41,12 +41,10 @@ public class UserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             currentSession.setUser(user);
-            System.out.println(currentSession.getUser().getUserName());
             return new LoginResponse(true, user);
         } else {
             return new LoginResponse(false,null);
         }
-
     }
 
     public LogoutResponse logOut(HttpSession session) {

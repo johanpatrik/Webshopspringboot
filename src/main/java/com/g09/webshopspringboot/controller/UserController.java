@@ -1,5 +1,6 @@
 package com.g09.webshopspringboot.controller;
 
+import com.g09.webshopspringboot.domain.CurrentSession;
 import com.g09.webshopspringboot.domain.LoginResponse;
 import com.g09.webshopspringboot.domain.LogoutResponse;
 import com.g09.webshopspringboot.domain.User;
@@ -45,18 +46,25 @@ public class UserController {
         return userService.selectAllCustomers();
     }
 
-    @GetMapping("/abc/defg/hjkl/mno")
-    public String orderConfirmation(@RequestBody User user){
-
-       /* if(userService.addOrder(user)){
-            return "confirmation";
-        }*/
-
-        return "Shop";
-    }
-    @CrossOrigin
     @GetMapping("logout")
     public LogoutResponse logOutUser(HttpServletRequest request) {
         return userService.logOut(request.getSession());
     }
+
+    @GetMapping("test")
+    public CurrentSession getValuesFromSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        CurrentSession currentSession = (CurrentSession) session.getAttribute("scopedTarget.currentSession");
+        return currentSession;
+    }
+
+ /*   @GetMapping("/abc/defg/hjkl/mno")
+    public String orderConfirmation(@RequestBody User user){
+
+       *//* if(userService.addOrder(user)){
+            return "confirmation";
+        }*//*
+
+        return "Shop";
+    }*/
 }
