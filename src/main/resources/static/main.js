@@ -37,17 +37,20 @@ $(document).ready(function () {
     });
 
     //present all records
-    $.getJSON("http://localhost:8080/records",
-        function(data) {
-            $.each(data, function(index, object) {
-                addProduct(object);
-                $('#record-link-' + object.id).click(function () {
-                    storeCurrentRecord(object);
-                    window.location.href = 'productinfo.html';
+    function presentAllRecords() {
+        $.getJSON("http://localhost:8080/records",
+            function (data) {
+                $.each(data, function (index, object) {
+                    addProduct(object);
+                    $('#record-link-' + object.id).click(function () {
+                        storeCurrentRecord(object);
+                        window.location.href = 'productinfo.html';
+                    });
                 });
             });
-        });
+    }
 
+    presentAllRecords();
 
     //store currentRecord in local storage
     function storeCurrentRecord(record) {
@@ -56,6 +59,32 @@ $(document).ready(function () {
     //return currentRecord from local storage
     function getStoredCurrentRecord() {
         return JSON.parse(localStorage.getItem('record'));
+    }
+
+    //searchFunction
+    $('#search-link').click(function () {
+        let searchInput = $('.searchInput').val();
+        if (searchInput === "") {
+            presentAllRecords();
+        } else {
+            let url = "http://localhost:8080/records/search/" + $('.searchInput').val();
+            console.log(url);
+            $.getJSON(url,
+                function (data) {
+                    clearProducts();
+                    $.each(data, function (index, object) {
+                        addProduct(object);
+                        $('#record-link-' + object.id).click(function () {
+                            storeCurrentRecord(object);
+                            window.location.href = 'productinfo.html';
+                        });
+                    });
+                });
+        }
+    });
+
+    function clearProducts() {
+        $('.box').html("");
     }
 
     function addProduct(record) {
