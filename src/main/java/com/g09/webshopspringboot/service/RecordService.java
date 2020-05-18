@@ -28,7 +28,7 @@ public class RecordService {
 
     public List<Record> getFilteredRecords(String searchWord) {
         return recordRepository.findAll().stream()
-                .filter(record -> record.getArtist().contains(searchWord) || record.getTitle().contains(searchWord))
+                .filter(record -> record.getArtist().toLowerCase().contains(searchWord) || record.getTitle().toLowerCase().contains(searchWord))
                 .collect(Collectors.toList());
     }
 }

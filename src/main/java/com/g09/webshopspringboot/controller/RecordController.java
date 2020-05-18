@@ -35,6 +35,6 @@ public class RecordController {
     @CrossOrigin
     @GetMapping("/search/{searchWord}")
     public List<Record> getFilteredRecords(@PathVariable String searchWord){
-        return recordService.getFilteredRecords(searchWord);
+        return recordService.getFilteredRecords(searchWord.toLowerCase());
     }
 }
