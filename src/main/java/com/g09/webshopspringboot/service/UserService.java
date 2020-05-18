@@ -2,11 +2,14 @@ package com.g09.webshopspringboot.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.g09.webshopspringboot.domain.*;
+import com.g09.webshopspringboot.repository.OrderPurchaseRepository;
 import com.g09.webshopspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,13 +18,16 @@ public class UserService {
 
     private UserRepository userRepository;
     private CurrentSession currentSession;
+    private OrderPurchaseRepository orderPurchaseRepository;
 
 
     @Autowired
-    public UserService(UserRepository userRepository, CurrentSession currentSession) {
+    public UserService(UserRepository userRepository, CurrentSession currentSession, OrderPurchaseRepository orderPurchaseRepository) {
         this.userRepository = userRepository;
         this.currentSession = currentSession;
+        this.orderPurchaseRepository = orderPurchaseRepository;
     }
+
 
 
     public String addUser(User user) {
@@ -61,18 +67,26 @@ public class UserService {
         return userRepository.findAll();
     }
 
-/*     public boolean addOrder(CurrentUser currentUser) {
+     public boolean addOrder(CurrentSession currentSession) {
 
-        int orderTotal = currentUser.getUser().getCart().calculateOrderTotal();
-        OrderPurchase order = new OrderPurchase(currentUser.getUser(), currentUser.getCart(),LocalDate.now(), orderTotal);
-        for (OrderInfo oi: currentUser.getCart()) {
-            oi.setOrder(order);
+        int orderTotal = currentSession.calculateOrderTotal();
+
+        List<OrderInfo> orderInfoList = new ArrayList<>();
+
+        OrderPurchase order = new OrderPurchase(currentSession.getUser(), orderInfoList, LocalDate.now(), orderTotal);
+
+        for(CartItem cartItem : currentSession.getCart()){
+            orderInfoList.add(new OrderInfo(cartItem.getRecord(),cartItem.getQuantity(),order));
         }
-        order.setItems(itemList);
-        currentUser.getUser().getOrders().add(order);
-        order.setUser(user);
+
+        order.setItems(orderInfoList);
+        currentSession.getUser().getOrders().add(order);
+        order.setUser(currentSession.getUser());
+
         orderPurchaseRepository.save(order);
-    } */
+
+        return true;
+    }
 
 
     public CurrentSession getCurrentSession() {

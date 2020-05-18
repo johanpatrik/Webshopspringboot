@@ -58,13 +58,13 @@ public class UserController {
         return currentSession;
     }
 
- /*   @GetMapping("/abc/defg/hjkl/mno")
-    public String orderConfirmation(@RequestBody User user){
+    @GetMapping("/confirmation")
+    public String orderConfirmation(@RequestBody CurrentSession currentSession){
 
-       *//* if(userService.addOrder(user)){
+        if(userService.addOrder(currentSession)){
             return "confirmation";
-        }*//*
+        }
 
         return "Shop";
-    }*/
+    }
 }

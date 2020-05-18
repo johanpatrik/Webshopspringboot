@@ -29,6 +29,11 @@ public class OrderInfo{
         this.quantity = quantity;
     }
 
+    public OrderInfo(Record record, int quantity, OrderPurchase order) {
+        this.record = record;
+        this.quantity = quantity;
+        this.order = order;
+    }
 
     /**
      * Metoden räknar ut summan av antalet av en specifik produkt
