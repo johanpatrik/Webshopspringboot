@@ -18,9 +18,10 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @PostMapping("add")
-    public boolean addToCart(@RequestBody CartItem cartItem) {
-       return cartService.addItemToCart(cartItem);
+    @CrossOrigin
+    @PostMapping("add/{id}")
+    public boolean addToCart(@PathVariable Long id) {
+       return cartService.addItemToCart(id);
     }
 
     @DeleteMapping("remove")

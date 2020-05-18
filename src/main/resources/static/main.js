@@ -20,11 +20,16 @@ $(document).ready(function () {
 
     });
 
+
     $("#logout-btn").click(function () {
         fetch("http://localhost:8080/users/logout")
             .then(response => response.json())
             .then(data => console.log(data))
             .then(() => window.location.href = "login.html");
+    });
+
+    $('#cart-btn').click(function () {
+    window.location.href = "cart.html";
     });
 
     $('#register-btn').click(function () {
@@ -43,15 +48,6 @@ $(document).ready(function () {
             });
         });
 
-    //show cart
-    $('#cart-btn').click(function () {
-        document.getElementById("myForm").style.display = "block";
-    });
-
-    //hide cart
-    $('#cart-cancel-btn').click(function () {
-        document.getElementById("myForm").style.display = "none";
-    });
 
     //store currentRecord in local storage
     function storeCurrentRecord(record) {
@@ -79,6 +75,14 @@ $(document).ready(function () {
     $('.info').ready(function () {
         let record = getStoredCurrentRecord();
         setProductInfo(record);
+        $('#add-to-cart-btn-' + record.id).click(function () {
+            let record = getStoredCurrentRecord();
+            let url = "http://localhost:8080/cart/add/" + record.id;
+            $.post(url,
+                function(data) {
+                   console.log(data);
+                    });
+        });
     });
 
     function setProductInfo(record) {
@@ -89,11 +93,9 @@ $(document).ready(function () {
             <h3 class="info-artist">${record.artist}</h3>
             <h4 class="info-title">${record.title}</h4>
         <h4 class="info-price">Price: ${record.price} KR</h4>
-        <button class="add-To-Cart-Btn">Add To Cart</button>
+        <button id="add-to-cart-btn-${record.id}" class="add-To-Cart-Btn">Add To Cart</button>
         </div>
             </div>`);
     }
-
-
 
 });
