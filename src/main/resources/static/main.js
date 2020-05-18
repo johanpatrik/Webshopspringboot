@@ -164,4 +164,8 @@ $(document).ready(function () {
             </div>`);
     };
 
+    let  addToCartBtn = $("#add-to-cart-btn");
+
+
+
 });

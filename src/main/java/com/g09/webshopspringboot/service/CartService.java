@@ -7,6 +7,9 @@ import com.g09.webshopspringboot.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CartService {
 
@@ -21,10 +24,25 @@ public class CartService {
 
 
     public boolean addItemToCart(Long recordId) {
-        return currentSession.getCart().add(new CartItem(recordRepository.findById(recordId).get(),1));
+        List<CartItem> cart = currentSession.getCart();
+        Optional<CartItem> cartItemOptional = cart.parallelStream().filter(cartItem -> cartItem.getRecord().getId() == recordId).findAny();
+        CartItem cartItem = null;
+        if (cartItemOptional.isPresent()) {
+            cartItem = cartItemOptional.get();
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
+            return true;
+        }
+        else {
+            cartItem = new CartItem(recordRepository.findById(recordId).get(),1);
+            return currentSession.getCart().add(cartItem);
+        }
     }
 
     public boolean removeCartItem(CartItem cartItem) {
         return currentSession.getCart().remove(cartItem);
+    }
+
+    public List<CartItem> getItemsInCart() {
+        return currentSession.getCart();
     }
 }

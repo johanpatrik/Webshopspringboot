@@ -235,6 +235,7 @@ header {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 1em;
+    cursor: pointer;
 }
 
 .add-To-Cart-Btn:hover {

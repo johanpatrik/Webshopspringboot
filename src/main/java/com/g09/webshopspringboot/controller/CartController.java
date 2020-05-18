@@ -5,6 +5,8 @@ import com.g09.webshopspringboot.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 //en controllerklass för att kunna lagra produkter i cart
 @RestController
@@ -27,6 +29,11 @@ public class CartController {
     @DeleteMapping("remove")
     public boolean removeFromCart(CartItem cartItem) {
         return cartService.removeCartItem(cartItem);
+    }
+
+    @GetMapping
+    public List<CartItem> getCart() {
+        return cartService.getItemsInCart();
     }
 
 }

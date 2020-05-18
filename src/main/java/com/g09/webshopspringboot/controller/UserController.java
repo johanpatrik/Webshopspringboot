@@ -20,7 +20,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @PostMapping("register")
     public User addUserToDB(@RequestBody User user,@RequestParam String password){
         user.setPassword(password);
