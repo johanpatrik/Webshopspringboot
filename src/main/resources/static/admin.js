@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
     let orders = JSON.parse(localStorage.orders || "[]");
     let items = JSON.parse(localStorage.items || "[]");
     loadUserTable();
@@ -18,7 +17,7 @@ $(document).ready(function () {
                     html += "<tr class='clickable-row-u' tabindex='0' id=" + customer.id + "><td>" + customer.userName + "</td>" +
                         "<td>" + customer.firstName + "</td>" +
                         "<td>" + customer.lastName + "</td>" +
-                        "<td>" + customer.formattedTotalSpent + "</td>" +
+                        "<td>" + customer.totalSpent + "</td>" +
                         "<td>" + customer.role + "</td>" +
                         "</tr>"
                 })
