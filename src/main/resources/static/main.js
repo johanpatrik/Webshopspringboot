@@ -3,20 +3,52 @@ $(document).ready(function () {
 
     $('#login-btn').click(function () {
         let url = 'http://localhost:8080/users/login?username=' + $('#username-input').val() + '&password=' + $('#password-input').val();
-        $.getJSON(url, function(data) {
+        $.getJSON(url, function (data) {
             console.log(data);
-               if (data.verified) {
-                   localStorage.setItem("user", JSON.stringify(data.user));
-                   if (data.user.role === 'ADMIN') {
-                       window.location.href = 'userOverview.html'
-                   } else {
-                       window.location.href = 'shop.html'
-                   }
-               } else {
-                   document.getElementById("wrong-label").style.visibility = "visible";
-                   $('#password-input').val("");
-               }
-            });
+            if (data.verified) {
+                localStorage.setItem("user", JSON.stringify(data.user));
+                if (data.user.role === 'ADMIN') {
+                    window.location.href = 'userOverview.html'
+                } else {
+                    window.location.href = 'shop.html'
+                }
+            } else {
+                document.getElementById("wrong-label").style.visibility = "visible";
+                $('#password-input').val("");
+            }
+        });
+
+    });
+
+
+    $('#registerBtn').click(function () {
+        let role = "CUSTOMER";
+        let username = $('#username-input');
+        let firstName = $('#firstname-input');
+        let lastName = $('#lastname-input');
+        let password = $('#password-input');
+
+        let User = {
+            role: role,
+            userName: username.val(),
+            firstName: firstName.val(),
+            lastName: lastName.val(),
+            password: password.val(),
+            totalSpent: "0 SEK"
+        };
+
+        let user1 = User;
+
+        let response = $.ajax({
+            type: "POST",
+            data: JSON.stringify(user1),
+            url: "http://localhost:8080/users/register/?password=" + password.val(),
+            contentType: "application/json",
+        });
+       username.val("");
+       firstName.val("");
+       lastName.val("");
+       password.val("");
 
     });
 
@@ -28,15 +60,19 @@ $(document).ready(function () {
             .then(() => window.location.href = "login.html");
     });
 
+    $("#loginBtn").click(function () {
+        window.location.href = "login.html";
+    });
+
     $('#cart-btn').click(function () {
-    window.location.href = "cart.html";
+        window.location.href = "cart.html";
     });
 
     $('#register-btn').click(function () {
-    window.location.href = 'register.html'
+        window.location.href = 'register.html'
     });
 
-    //present all records
+//present all records
     function presentAllRecords() {
         $.getJSON("http://localhost:8080/records",
             function (data) {
@@ -52,16 +88,17 @@ $(document).ready(function () {
 
     presentAllRecords();
 
-    //store currentRecord in local storage
+//store currentRecord in local storage
     function storeCurrentRecord(record) {
-        localStorage.setItem('record',JSON.stringify(record));
+        localStorage.setItem('record', JSON.stringify(record));
     }
-    //return currentRecord from local storage
+
+//return currentRecord from local storage
     function getStoredCurrentRecord() {
         return JSON.parse(localStorage.getItem('record'));
     }
 
-    //searchFunction
+//searchFunction
     $('#search-link').click(function () {
         let searchInput = $('.searchInput').val();
         if (searchInput === "") {
@@ -108,9 +145,9 @@ $(document).ready(function () {
             let record = getStoredCurrentRecord();
             let url = "http://localhost:8080/cart/add/" + record.id;
             $.post(url,
-                function(data) {
-                   console.log(data);
-                    });
+                function (data) {
+                    console.log(data);
+                });
         });
     });
 
@@ -125,6 +162,6 @@ $(document).ready(function () {
         <button id="add-to-cart-btn-${record.id}" class="add-To-Cart-Btn">Add To Cart</button>
         </div>
             </div>`);
-    }
+    };
 
 });

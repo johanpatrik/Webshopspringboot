@@ -40,4 +40,12 @@ public class CurrentSession {
     public String getId() {
         return id;
     }
+
+    public int calculateOrderTotal(){
+        int total = 0;
+        for(CartItem cartItem : cart){
+            total += cartItem.getQuantity()*cartItem.getRecord().getPrice();
+        }
+        return total;
+    }
 }

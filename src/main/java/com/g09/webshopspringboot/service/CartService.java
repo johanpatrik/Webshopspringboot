@@ -21,7 +21,6 @@ public class CartService {
 
 
     public boolean addItemToCart(Long recordId) {
-
         return currentSession.getCart().add(new CartItem(recordRepository.findById(recordId).get(),1));
     }
 

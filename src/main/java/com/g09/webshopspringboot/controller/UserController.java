@@ -1,9 +1,6 @@
 package com.g09.webshopspringboot.controller;
 
-import com.g09.webshopspringboot.domain.CurrentSession;
-import com.g09.webshopspringboot.domain.LoginResponse;
-import com.g09.webshopspringboot.domain.LogoutResponse;
-import com.g09.webshopspringboot.domain.User;
+import com.g09.webshopspringboot.domain.*;
 import com.g09.webshopspringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +21,10 @@ public class UserController {
     }
 
 
-    @PostMapping
-    public void addUserToDB(User user){
-        userService.addUser(user);
+    @PostMapping("register")
+    public User addUserToDB(@RequestBody User user,@RequestParam String password){
+        user.setPassword(password);
+       return userService.addUser(user);
     }
 
     @CrossOrigin
@@ -34,6 +32,7 @@ public class UserController {
     public LoginResponse verifyUser(@RequestParam String username, @RequestParam String password){
         return userService.verifyUser(username,password);
     }
+
 
     @CrossOrigin
     @GetMapping
@@ -58,13 +57,13 @@ public class UserController {
         return currentSession;
     }
 
- /*   @GetMapping("/abc/defg/hjkl/mno")
-    public String orderConfirmation(@RequestBody User user){
+    @GetMapping("/confirmation")
+    public String orderConfirmation(@RequestBody CurrentSession currentSession){
 
-       *//* if(userService.addOrder(user)){
+        if(userService.addOrder(currentSession)){
             return "confirmation";
-        }*//*
+        }
 
         return "Shop";
-    }*/
+    }
 }
