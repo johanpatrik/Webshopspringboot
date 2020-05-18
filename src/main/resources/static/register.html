@@ -12,29 +12,27 @@
 </head>
 
 <body>
-
-<form class="login-form">
+<div id="loginForm" class="login-form">
     <img src="images/logo.png" class="logo-small" alt="logo">
     <div class="login-info">
         <label class="login-label">Username</label><br/>
-        <input type="text" maxlength="20" class="login-input"/>
+        <input required="required" id="username-input" type="text" maxlength="20" class="login-input"/>
     </div>
     <div class="login-info">
         <label class="login-label">Firstname</label><br/>
-        <input type="text" maxlength="20" class="login-input"/>
+        <input required="required" id="firstname-input" type="text" maxlength="20" class="login-input"/>
     </div>
     <div class="login-info">
         <label class="login-label">Lastname</label><br/>
-        <input type="text" maxlength="20" class="login-input"/>
+        <input required="required" id="lastname-input" type="text" maxlength="20" class="login-input"/>
     </div>
     <div class="login-info">
         <label class="login-label">Password</label><br/>
-        <input type="password" maxlength="20" class="login-input"/>
+        <input required="required" minlength="5" id="password-input" type="password" maxlength="20" class="login-input"/>
     </div>
-    <button class="btn login-btn">Register</button>
-</form>
-
-
+    <button type="submit" id="registerBtn" class="btn login-btn">Register</button>
+    <button id="loginBtn" class="btn login-btn">Go Back</button>
+</div>
 <script src="main.js"></script>
 </body>
 </html>

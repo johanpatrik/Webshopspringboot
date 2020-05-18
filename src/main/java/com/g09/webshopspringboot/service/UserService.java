@@ -24,16 +24,16 @@ public class UserService {
     }
 
 
-    public String addUser(User user) {
-
+    public User addUser(User user) {
         if (userRepository.findByUserName(user.getUserName()).isPresent()) {
-            return "register";
-
+            return null;
         } else {
             userRepository.save(user);
-            return "shop";
+            return user;
         }
     }
+
+
 
     //Kontrollerar om username och password finns i databasen?
     public LoginResponse verifyUser(String userName, String password) {
