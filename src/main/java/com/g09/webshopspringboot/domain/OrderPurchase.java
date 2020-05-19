@@ -6,11 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 public class OrderPurchase implements Serializable {
@@ -64,7 +62,7 @@ public class OrderPurchase implements Serializable {
      */
     @JsonProperty
     public String formattedOrderTotal() {
-        return formatNumbers(orderTotal) + " SEK";
+        return FormatNumber.formatCurrency(orderTotal);
     }
 
     /**
@@ -75,14 +73,9 @@ public class OrderPurchase implements Serializable {
     @JsonProperty("itemsQuantity")
     public String calculateItemsQuantity() {
         int qty = items.parallelStream().mapToInt(item -> item.getQuantity()).sum();
-        return formatNumbers(qty);
+        return FormatNumber.formatQuantity(qty);
     }
 
-    private String formatNumbers(int number) {
-        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("sv", "SE"));
-        String formmated = nf.format(number);
-        return formmated.substring(0, formmated.lastIndexOf(","));
-    }
 
     public void setUser(User user) {
         this.user = user;

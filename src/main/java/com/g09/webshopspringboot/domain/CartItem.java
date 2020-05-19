@@ -1,5 +1,10 @@
 package com.g09.webshopspringboot.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class CartItem {
 
     private Record record;
@@ -25,5 +30,11 @@ public class CartItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @JsonProperty("totalPrice")
+    public String totalPrice(){
+        int result = this.quantity * this.record.getPrice();
+        return FormatNumber.formatCurrency(result);
     }
 }

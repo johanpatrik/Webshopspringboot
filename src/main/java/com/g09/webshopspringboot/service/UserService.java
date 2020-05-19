@@ -32,7 +32,7 @@ public class UserService {
 
     public User addUser(User user) {
         if (userRepository.findByUserName(user.getUserName()).isPresent()) {
-            return null;
+            return new User();
         } else {
             userRepository.save(user);
             return user;

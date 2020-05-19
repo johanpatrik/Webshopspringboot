@@ -45,4 +45,8 @@ public class CartService {
     public List<CartItem> getItemsInCart() {
         return currentSession.getCart();
     }
+
+    public void clearCart(){
+        currentSession.getCart().clear();
+    }
 }

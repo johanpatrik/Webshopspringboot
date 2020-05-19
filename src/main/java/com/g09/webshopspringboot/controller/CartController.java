@@ -36,4 +36,9 @@ public class CartController {
         return cartService.getItemsInCart();
     }
 
+    @GetMapping("empty")
+    public void emptyCart(){
+        cartService.clearCart();
+    }
+
 }

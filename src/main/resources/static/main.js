@@ -39,16 +39,37 @@ $(document).ready(function () {
 
         let user1 = User;
 
-        let response = $.ajax({
-            type: "POST",
-            data: JSON.stringify(user1),
-            url: "http://localhost:8080/users/register/?password=" + password.val(),
-            contentType: "application/json",
-        });
-       username.val("");
-       firstName.val("");
-       lastName.val("");
-       password.val("");
+        let response;
+            if (username.val() !== "" || firstname.val() !== "" ||
+            lastname.val() !== "" || password.val() !== ""){
+
+                response = $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(user1),
+                    url: "http://localhost:8080/users/register/?password=" + password.val(),
+                    contentType: "application/json",
+                    success: function (data) {
+
+                        let label = document.getElementById("reg-wrong-label");
+                        if (data.userName === null) {
+                            label.innerText = "The username: " + username.val() + " is taken, try again!";
+                            label.style.visibility = "visible";
+                            username.val("");
+                        } else {
+                            label.innerText = "Registration successful!";
+                            label.style.visibility = "visible";
+                            username.val("");
+                        }
+                    }
+                });
+            }
+
+        response.success;
+
+        firstName.val("");
+        lastName.val("");
+        password.val("");
+
 
     });
 
@@ -164,8 +185,7 @@ $(document).ready(function () {
             </div>`);
     };
 
-    let  addToCartBtn = $("#add-to-cart-btn");
-
+    let addToCartBtn = $("#add-to-cart-btn");
 
 
 });

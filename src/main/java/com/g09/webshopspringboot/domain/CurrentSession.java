@@ -1,6 +1,7 @@
 package com.g09.webshopspringboot.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 

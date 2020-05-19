@@ -13,24 +13,27 @@
 
 <body>
 <div id="loginForm" class="login-form">
-    <img src="images/logo.png" class="logo-small" alt="logo">
-    <div class="login-info">
-        <label class="login-label">Username</label><br/>
-        <input required="required" id="username-input" type="text" maxlength="20" class="login-input"/>
-    </div>
-    <div class="login-info">
-        <label class="login-label">Firstname</label><br/>
-        <input required="required" id="firstname-input" type="text" maxlength="20" class="login-input"/>
-    </div>
-    <div class="login-info">
-        <label class="login-label">Lastname</label><br/>
-        <input required="required" id="lastname-input" type="text" maxlength="20" class="login-input"/>
-    </div>
-    <div class="login-info">
-        <label class="login-label">Password</label><br/>
-        <input required="required" minlength="5" id="password-input" type="password" maxlength="20" class="login-input"/>
-    </div>
-    <button type="submit" id="registerBtn" class="btn login-btn">Register</button>
+    <form>
+        <img src="images/logo.png" class="logo-small" alt="logo">
+        <div class="login-info">
+            <label class="login-label">Username</label><br/>
+            <input required id="username-input" type="text" maxlength="20" class="login-input"/>
+        </div>
+        <div class="login-info">
+            <label class="login-label">Firstname</label><br/>
+            <input required id="firstname-input" type="text" maxlength="20" class="login-input"/>
+        </div>
+        <div class="login-info">
+            <label class="login-label">Lastname</label><br/>
+            <input required id="lastname-input" type="text" maxlength="20" class="login-input"/>
+        </div>
+        <div class="login-info">
+            <label class="login-label">Password</label><br/>
+            <input required minlength="5" id="password-input" type="password" maxlength="20" class="login-input"/>
+        </div>
+        <h5 id="reg-wrong-label"></h5>
+        <button type="submit" id="registerBtn" class="btn login-btn">Register</button>
+    </form>
     <button id="loginBtn" class="btn login-btn">Go Back</button>
 </div>
 <script src="main.js"></script>

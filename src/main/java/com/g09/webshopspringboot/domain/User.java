@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Data
@@ -43,9 +41,7 @@ public class User {
     @JsonProperty("totalSpent")
     public String getFormattedTotalSpent() {
         int sum = getTotalSpent();
-        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("sv","SE"));
-        String formmated = nf.format(sum);
-        return formmated.substring(0,formmated.lastIndexOf(",")) + " SEK";
+        return FormatNumber.formatCurrency(sum);
     }
 
     @JsonIgnore

@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 @Entity
 @Data
@@ -42,7 +40,7 @@ public class OrderInfo{
      */
     @JsonProperty
     public String getTotalPriceFormatted() {
-        return formatNumbers(getTotalPrice()) + " SEK";
+        return FormatNumber.formatCurrency(getTotalPrice());
     }
 
     public int getTotalPrice() {
@@ -51,12 +49,7 @@ public class OrderInfo{
 
     @JsonProperty
     public String formattedQuantity() {
-        return formatNumbers(getQuantity());
+        return FormatNumber.formatQuantity(getQuantity());
     }
 
-    private String formatNumbers(int number) {
-        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("sv", "SE"));
-        String formmated = nf.format(number);
-        return formmated.substring(0, formmated.lastIndexOf(","));
-    }
 }
