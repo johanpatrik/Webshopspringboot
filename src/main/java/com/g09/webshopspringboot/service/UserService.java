@@ -83,6 +83,8 @@ public class UserService {
         currentSession.getUser().getOrders().add(order);
         order.setUser(currentSession.getUser());
 
+
+
         orderPurchaseRepository.save(order);
 
         return true;

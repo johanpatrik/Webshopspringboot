@@ -46,6 +46,12 @@ public class CurrentSession {
         for(CartItem cartItem : cart){
             total += cartItem.getQuantity()*cartItem.getRecord().getPrice();
         }
+        if(user.getRole() == Role.PREMIUM){
+            return (int) (total*.9);
+        }
+        if(user.getTotalSpent() + total >= 500_000){
+            user.setRole(Role.PREMIUM);
+        }
         return total;
     }
 }
