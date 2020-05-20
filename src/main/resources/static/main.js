@@ -8,6 +8,7 @@ $(document).ready(function () {
             if (data.verified) {
                 localStorage.setItem("firstname", data.user.firstName);
                 localStorage.setItem("lastname", data.user.lastName);
+                localStorage.setItem("role", data.user.role);
                 localStorage.setItem("cartCount",JSON.stringify(0));
                 if (data.user.role === 'ADMIN') {
                     window.location.href = 'userOverview.html'
@@ -22,9 +23,16 @@ $(document).ready(function () {
 
     });
 
-    cartVisability();
+    cartVisibility();
 
+    //Logged in user
+    let greeting = localStorage.getItem("firstname") + " " + localStorage.getItem("lastname");
+    if (localStorage.getItem("role")==="PREMIUM") {
+      greeting += "- Premium Customer"
+    }
+    $('.greeting').text(greeting);
 
+    //Regbtn listener
     $('#registerBtn').click(function () {
         let role = "CUSTOMER";
         let username = $('#username-input');
@@ -100,7 +108,7 @@ $(document).ready(function () {
         window.location.href = 'register.html'
     });
 
-function cartVisability() {
+function cartVisibility() {
     let count = parseInt(localStorage.getItem("cartCount"));
     if (count > 0) {
         $('.cart-qty').show();
@@ -108,6 +116,11 @@ function cartVisability() {
         $('.cart-qty').hide();
     }
 }
+
+
+
+
+
 
 
 //present all records
