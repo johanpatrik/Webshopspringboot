@@ -7,6 +7,7 @@ $(document).ready(function () {
             console.log(data);
             if (data.verified) {
                 localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("cartCount",JSON.stringify(0));
                 if (data.user.role === 'ADMIN') {
                     window.location.href = 'userOverview.html'
                 } else {
@@ -19,6 +20,8 @@ $(document).ready(function () {
         });
 
     });
+
+    cartVisability();
 
 
     $('#registerBtn').click(function () {
@@ -76,9 +79,10 @@ $(document).ready(function () {
 
     $("#logout-btn").click(function () {
         fetch("http://localhost:8080/users/logout")
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .then(() => window.location.href = "login.html");
+            .then(response => response.json());
+
+        localStorage.clear();
+        window.location.href = "login.html"
     });
 
     $("#loginBtn").click(function () {
@@ -89,9 +93,21 @@ $(document).ready(function () {
         window.location.href = "cart.html";
     });
 
+    $('.cart-qty').text(localStorage.getItem("cartCount"));
+
     $('#register-btn').click(function () {
         window.location.href = 'register.html'
     });
+
+function cartVisability() {
+    let count = parseInt(localStorage.getItem("cartCount"));
+    if (count > 0) {
+        $('.cart-qty').show();
+    } else {
+        $('.cart-qty').hide();
+    }
+}
+
 
 //present all records
     function presentAllRecords() {
@@ -108,6 +124,7 @@ $(document).ready(function () {
     }
 
     presentAllRecords();
+
 
 //store currentRecord in local storage
     function storeCurrentRecord(record) {
@@ -163,13 +180,18 @@ $(document).ready(function () {
         let record = getStoredCurrentRecord();
         setProductInfo(record);
         $('#add-to-cart-btn-' + record.id).click(function () {
+            let counter = parseInt(localStorage.getItem("cartCount"));
+            console.log(counter);
+            counter +=1;
+            localStorage.setItem("cartCount",JSON.stringify(counter));
             let record = getStoredCurrentRecord();
             let url = "http://localhost:8080/cart/add/" + record.id;
             $.post(url,
                 function (data) {
-                    console.log(data);
                 });
+            window.location.href = 'productinfo.html';
         });
+
     });
 
     function setProductInfo(record) {
