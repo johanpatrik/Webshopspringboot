@@ -6,7 +6,8 @@ $(document).ready(function () {
         $.getJSON(url, function (data) {
             console.log(data);
             if (data.verified) {
-                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("firstname", data.user.firstName);
+                localStorage.setItem("lastname", data.user.lastName);
                 if (data.user.role === 'ADMIN') {
                     window.location.href = 'userOverview.html'
                 } else {

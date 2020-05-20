@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    console.log("HEJ HUGO")
     loadCartTable();
     loadOrderTotal();
 
@@ -23,15 +24,6 @@ $(document).ready(function () {
 
     }
 
-    function loadOrderTotal() {
-
-        fetch("http://localhost:8080/users/test")
-            .then(response => response.json())
-            .then(data => {
-                $("#display-total").text(data.orderTotal);
-            })
-    }
-
     $("#empty-btn").click(function () {
         fetch("http://localhost:8080/cart/empty")
             .then(() => window.location.href = "http://localhost:8080/shop.html")
@@ -52,4 +44,17 @@ $(document).ready(function () {
             .then(data => console.log(data))
             .then(() => window.location.href = "login.html");
     });
+
+    function loadOrderTotal() {
+        let displayTotal = $("#display-total");
+        fetch("http://localhost:8080/users/current")
+            .then(response => response.json())
+            .then(data => {
+                if (data.user.role === "PREMIUM")
+                    document.getElementById("premium-text").style.visibility = "visible";
+                else
+                    document.getElementById("premium-text").style.visibility = "hidden";
+                displayTotal.html("<b>TOTAL: " + data.total + "</b>");
+            });
+    }
 });

@@ -5,6 +5,7 @@ $(document).ready(function () {
     loadUserTable();
     loadOrderTable();
     loadItemTable();
+    loadNames();
 
 
     function loadUserTable() {
@@ -83,4 +84,13 @@ $(document).ready(function () {
             .then(data => console.log(data))
             .then(() => window.location.href = "login.html");
     })
+
+
+    function loadNames() {
+        let nameDisplay = $("#name-display");
+        let firstname = localStorage.getItem("firstname");
+        let lastname = localStorage.getItem("lastname");
+
+        nameDisplay.text(firstname + " " + lastname);
+    }
 });

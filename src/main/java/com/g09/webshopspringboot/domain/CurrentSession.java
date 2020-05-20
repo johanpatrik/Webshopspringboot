@@ -42,6 +42,11 @@ public class CurrentSession {
         return id;
     }
 
+    @JsonProperty("total")
+    public String formattedOrderTotal() {
+        return FormatNumber.formatCurrency(calculateOrderTotal());
+    }
+
     public int calculateOrderTotal(){
         int total = 0;
         for(CartItem cartItem : cart){

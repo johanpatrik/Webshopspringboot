@@ -13,3 +13,7 @@
     letter-spacing: 1px;
     border: none;
 }
+
+#premium-text {
+    visibility: hidden;
+}

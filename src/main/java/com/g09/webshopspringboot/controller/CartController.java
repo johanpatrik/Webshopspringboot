@@ -3,6 +3,8 @@ package com.g09.webshopspringboot.controller;
 import com.g09.webshopspringboot.domain.CartItem;
 import com.g09.webshopspringboot.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

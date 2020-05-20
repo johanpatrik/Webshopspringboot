@@ -49,7 +49,7 @@ public class UserController {
         return userService.logOut(request.getSession());
     }
 
-    @GetMapping("test")
+    @GetMapping("current")
     public CurrentSession getValuesFromSession(HttpServletRequest request) {
         HttpSession session = request.getSession();
         CurrentSession currentSession = (CurrentSession) session.getAttribute("scopedTarget.currentSession");
