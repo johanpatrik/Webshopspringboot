@@ -34,12 +34,13 @@ public class OrderService {
     }
 
     public OrderPurchase addOrder() {
+        User user = currentSession.getUser();
         int cartTotal = currentSession.calculateOrderTotal();
         List<OrderInfo> orderInfoList = new ArrayList<>();
-        if (currentSession.getUser().getTotalSpent() + cartTotal >= 500_000) {
-            currentSession.getUser().setRole(Role.PREMIUM);
+        if (user.getTotalSpent() + cartTotal >= 500_000 && user.getRole() == Role.CUSTOMER) {
+            user.setRole(Role.PREMIUM);
         }
-        OrderPurchase order = new OrderPurchase(currentSession.getUser(), orderInfoList, LocalDate.now(), cartTotal);
+        OrderPurchase order = new OrderPurchase(user, orderInfoList, LocalDate.now(), cartTotal);
 
         for (CartItem cartItem : currentSession.getCart()) {
             orderInfoList.add(new OrderInfo(cartItem.getRecord(), cartItem.getQuantity(), order));
@@ -48,8 +49,7 @@ public class OrderService {
             int x = i * 2 / 2;
         }
         orderPurchaseRepository.save(order);
-        userRepository.save(currentSession.getUser());
-        User user = userRepository.findById(currentSession.getUser().getId()).get();
+        userRepository.save(user);
         List<OrderPurchase> orders = orderPurchaseRepository.findAllByUserId(user.getId());
         user.setOrders(orders);
         currentSession.setUser(user);
