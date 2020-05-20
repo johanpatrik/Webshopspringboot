@@ -25,9 +25,12 @@ $(document).ready(function () {
     }
 
     $("#empty-btn").click(function () {
-        fetch("http://localhost:8080/cart/empty")
-            .then(() => window.location.href = "http://localhost:8080/shop.html")
-    })
+        fetch("http://localhost:8080/cart/empty");
+
+        localStorage.setItem("cartCount",JSON.stringify(0));
+        window.location.href = "shop.html";
+
+    });
 
     $("#continue-btn").click(function () {
         window.location.href = "http://localhost:8080/shop.html";

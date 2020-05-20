@@ -8,6 +8,7 @@ $(document).ready(function () {
             if (data.verified) {
                 localStorage.setItem("firstname", data.user.firstName);
                 localStorage.setItem("lastname", data.user.lastName);
+                localStorage.setItem("cartCount",JSON.stringify(0));
                 if (data.user.role === 'ADMIN') {
                     window.location.href = 'userOverview.html'
                 } else {
@@ -20,6 +21,8 @@ $(document).ready(function () {
         });
 
     });
+
+    cartVisability();
 
 
     $('#registerBtn').click(function () {
@@ -79,6 +82,7 @@ $(document).ready(function () {
         fetch("http://localhost:8080/users/logout")
             .then(response => response.json())
             .then(data => console.log(data))
+            .then(() => localStorage.clear())
             .then(() => window.location.href = "login.html");
     });
 
@@ -90,9 +94,21 @@ $(document).ready(function () {
         window.location.href = "cart.html";
     });
 
+    $('.cart-qty').text(localStorage.getItem("cartCount"));
+
     $('#register-btn').click(function () {
         window.location.href = 'register.html'
     });
+
+function cartVisability() {
+    let count = parseInt(localStorage.getItem("cartCount"));
+    if (count > 0) {
+        $('.cart-qty').show();
+    } else {
+        $('.cart-qty').hide();
+    }
+}
+
 
 //present all records
     function presentAllRecords() {
@@ -163,13 +179,21 @@ $(document).ready(function () {
     $('.info').ready(function () {
         let record = getStoredCurrentRecord();
         setProductInfo(record);
+        $('#back-To-Shop').click(function () {
+            window.location.href = "shop.html"
+        });
         $('#add-to-cart-btn-' + record.id).click(function () {
+            let counter = parseInt(localStorage.getItem("cartCount"));
+            console.log(counter);
+            counter +=1;
+            localStorage.setItem("cartCount",JSON.stringify(counter));
             let record = getStoredCurrentRecord();
             let url = "http://localhost:8080/cart/add/" + record.id;
             $.post(url,
                 function (data) {
                     console.log(data);
                 });
+            window.location.href = 'productinfo.html';
         });
     });
 
@@ -182,6 +206,7 @@ $(document).ready(function () {
             <h4 class="info-title">${record.title}</h4>
         <h4 class="info-price">Price: ${record.price} KR</h4>
         <button id="add-to-cart-btn-${record.id}" class="add-To-Cart-Btn">Add To Cart</button>
+        <button id="back-To-Shop" class="add-To-Cart-Btn">Go back</button>
         </div>
             </div>`);
     };
