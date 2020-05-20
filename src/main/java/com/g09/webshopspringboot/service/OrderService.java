@@ -1,28 +1,58 @@
 package com.g09.webshopspringboot.service;
 
-import com.g09.webshopspringboot.domain.OrderPurchase;
+import com.g09.webshopspringboot.domain.*;
 import com.g09.webshopspringboot.repository.OrderPurchaseRepository;
+import com.g09.webshopspringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
 
     private OrderPurchaseRepository orderPurchaseRepository;
+    private UserRepository userRepository;
+    private CurrentSession currentSession;
 
     @Autowired
-    public OrderService(OrderPurchaseRepository orderPurchaseRepository) {
+    public OrderService(OrderPurchaseRepository orderPurchaseRepository, UserRepository userRepository, CurrentSession currentSession) {
         this.orderPurchaseRepository = orderPurchaseRepository;
+        this.userRepository = userRepository;
+        this.currentSession = currentSession;
     }
 
-    public List<OrderPurchase> SelectOrdersByUserId(@PathVariable Long userId) {
+
+    public List<OrderPurchase> SelectOrdersByUserId(Long userId) {
         return orderPurchaseRepository.findAllByUserId(userId);
     }
 
+    public OrderPurchase addOrder() {
+        int cartTotal = currentSession.calculateOrderTotal();
+        List<OrderInfo> orderInfoList = new ArrayList<>();
+        if (currentSession.getUser().getTotalSpent() + cartTotal >= 500_000) {
+            currentSession.getUser().setRole(Role.PREMIUM);
+        }
+        OrderPurchase order = new OrderPurchase(currentSession.getUser(), orderInfoList, LocalDate.now(), cartTotal);
 
+        for (CartItem cartItem : currentSession.getCart()) {
+            orderInfoList.add(new OrderInfo(cartItem.getRecord(), cartItem.getQuantity(), order));
+        }
+        for (int i = 0; i <100 ; i++) {
+            int x = i * 2 / 2;
+        }
+        orderPurchaseRepository.save(order);
+        userRepository.save(currentSession.getUser());
+        User user = userRepository.findById(currentSession.getUser().getId()).get();
+        List<OrderPurchase> orders = orderPurchaseRepository.findAllByUserId(user.getId());
+        user.setOrders(orders);
+        currentSession.setUser(user);
+        return order;
+    }
 }

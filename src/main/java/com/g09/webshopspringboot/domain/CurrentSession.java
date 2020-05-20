@@ -13,9 +13,9 @@ import java.util.UUID;
 @Component
 public class CurrentSession {
 
-    private String id = "unknown";
-    private User user = null;
-    private List<CartItem> cart = null;
+    private String id;
+    private User user;
+    private List<CartItem> cart;
 
     public CurrentSession() {
     }
@@ -53,10 +53,7 @@ public class CurrentSession {
             total += cartItem.getQuantity()*cartItem.getRecord().getPrice();
         }
         if(user.getRole() == Role.PREMIUM){
-            return (int) (total*.9);
-        }
-        if(user.getTotalSpent() + total >= 500_000){
-            user.setRole(Role.PREMIUM);
+            total = (int) (total*.9);
         }
         return total;
     }

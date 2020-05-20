@@ -3,10 +3,7 @@ package com.g09.webshopspringboot.controller;
 import com.g09.webshopspringboot.domain.OrderPurchase;
 import com.g09.webshopspringboot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,11 @@ public class OrderController {
     @GetMapping(path = "{userId}")
     public List<OrderPurchase> getOrdersById(@PathVariable Long userId) {
         return orderService.SelectOrdersByUserId(userId);
+    }
+
+    @GetMapping("create")
+    public OrderPurchase placeOrder() {
+        return orderService.addOrder();
     }
 
 }

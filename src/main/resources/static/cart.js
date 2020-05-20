@@ -36,7 +36,11 @@ $(document).ready(function () {
     })
 
     $("#checkOut-btn").click(function () {
-        window.location.href = "http://localhost:8080/shop.html";
+        fetch("http://localhost:8080/orders/create")
+            .then(response => response.json())
+            .then(data => localStorage.setItem("order", data))
+            .then(() => localStorage.setItem("cartCount",JSON.stringify(0)))
+            .then(() => window.location.href = "checkOut.html");
     })
 
 
@@ -59,4 +63,5 @@ $(document).ready(function () {
                 displayTotal.html("<b>TOTAL: " + data.total + "</b>");
             });
     }
+
 });

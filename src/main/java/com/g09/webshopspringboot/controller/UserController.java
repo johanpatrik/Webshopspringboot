@@ -56,13 +56,4 @@ public class UserController {
         return currentSession;
     }
 
-    @GetMapping("/confirmation")
-    public String orderConfirmation(@RequestBody CurrentSession currentSession){
-
-        if(userService.addOrder(currentSession)){
-            return "confirmation";
-        }
-
-        return "Shop";
-    }
 }

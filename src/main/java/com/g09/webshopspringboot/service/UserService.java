@@ -67,29 +67,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-     public boolean addOrder(CurrentSession currentSession) {
-
-        int orderTotal = currentSession.calculateOrderTotal();
-
-        List<OrderInfo> orderInfoList = new ArrayList<>();
-
-        OrderPurchase order = new OrderPurchase(currentSession.getUser(), orderInfoList, LocalDate.now(), orderTotal);
-
-        for(CartItem cartItem : currentSession.getCart()){
-            orderInfoList.add(new OrderInfo(cartItem.getRecord(),cartItem.getQuantity(),order));
-        }
-
-        order.setItems(orderInfoList);
-        currentSession.getUser().getOrders().add(order);
-        order.setUser(currentSession.getUser());
-
-
-
-        orderPurchaseRepository.save(order);
-
-        return true;
-    }
-
 
     public CurrentSession getCurrentSession() {
         return currentSession;
