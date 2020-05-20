@@ -93,6 +93,7 @@ $(document).ready(function () {
         window.location.href = 'register.html'
     });
 
+
 //present all records
     function presentAllRecords() {
         $.getJSON("http://localhost:8080/records",
@@ -162,6 +163,9 @@ $(document).ready(function () {
     $('.info').ready(function () {
         let record = getStoredCurrentRecord();
         setProductInfo(record);
+        $('#back-To-Shop').click(function () {
+            window.location.href = "shop.html"
+        });
         $('#add-to-cart-btn-' + record.id).click(function () {
             let record = getStoredCurrentRecord();
             let url = "http://localhost:8080/cart/add/" + record.id;
@@ -181,6 +185,7 @@ $(document).ready(function () {
             <h4 class="info-title">${record.title}</h4>
         <h4 class="info-price">Price: ${record.price} KR</h4>
         <button id="add-to-cart-btn-${record.id}" class="add-To-Cart-Btn">Add To Cart</button>
+        <button id="back-To-Shop" class="add-To-Cart-Btn">Go back</button>
         </div>
             </div>`);
     };
