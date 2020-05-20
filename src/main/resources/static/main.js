@@ -179,6 +179,9 @@ function cartVisability() {
     $('.info').ready(function () {
         let record = getStoredCurrentRecord();
         setProductInfo(record);
+        $('#back-To-Shop').click(function () {
+            window.location.href = "shop.html"
+        });
         $('#add-to-cart-btn-' + record.id).click(function () {
             let counter = parseInt(localStorage.getItem("cartCount"));
             console.log(counter);
@@ -203,6 +206,7 @@ function cartVisability() {
             <h4 class="info-title">${record.title}</h4>
         <h4 class="info-price">Price: ${record.price} KR</h4>
         <button id="add-to-cart-btn-${record.id}" class="add-To-Cart-Btn">Add To Cart</button>
+        <button id="back-To-Shop" class="add-To-Cart-Btn">Go back</button>
         </div>
             </div>`);
     };
