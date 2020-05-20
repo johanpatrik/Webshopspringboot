@@ -123,7 +123,7 @@ header {
 .cart {
     opacity: 0.8;
     border: none;
-
+    display: inline-block;
 }
 
 .cart:hover {
