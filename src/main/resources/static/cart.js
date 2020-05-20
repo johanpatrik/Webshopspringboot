@@ -29,7 +29,6 @@ $(document).ready(function () {
 
         localStorage.setItem("cartCount",JSON.stringify(0));
         window.location.href = "shop.html";
-
     });
 
     $("#continue-btn").click(function () {
