@@ -27,6 +27,7 @@ $(document).ready(function () {
 
     //Logged in user
     let greeting = localStorage.getItem("firstname") + " " + localStorage.getItem("lastname");
+
     if (localStorage.getItem("role")==="PREMIUM") {
       greeting += "- Premium Customer"
     }

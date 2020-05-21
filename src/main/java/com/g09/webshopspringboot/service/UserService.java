@@ -67,7 +67,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-
     public CurrentSession getCurrentSession() {
         return currentSession;
     }

@@ -3,6 +3,9 @@ $(document).ready(function () {
     loadCartTable();
     loadOrderTotal();
 
+    let greeting = localStorage.getItem("firstname") + " " + localStorage.getItem("lastname");
+    $('.greeting').text(greeting);
+
     function loadCartTable() {
 
         let $cart = $("#cart-body");
