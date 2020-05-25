@@ -121,9 +121,6 @@ function cartVisibility() {
 
 
 
-
-
-
 //present all records
     function presentAllRecords() {
         $.getJSON("http://localhost:8080/records",
@@ -224,6 +221,11 @@ function cartVisibility() {
         </div>
             </div>`);
     };
+
+
+
+
+
 
 
 

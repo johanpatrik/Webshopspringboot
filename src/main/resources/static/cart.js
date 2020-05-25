@@ -14,8 +14,8 @@ $(document).ready(function () {
             .then(response => response.json())
             .then(data => {
                 let text = "";
+                localStorage.setItem("cart",JSON.stringify(data));
                 data.forEach(item => {
-
                     text += "<tr><td><img class='cart-img' src = 'images/" + item.record.imgURL + "'/></td>" +
                         "<td class='cart-text'>" + item.record.title + "</td>" +
                         "<td class='cart-text'>" + item.record.artist + "</td>" +
@@ -24,8 +24,8 @@ $(document).ready(function () {
                     $cart.html(text);
                 })
             });
-
     }
+
 
     $("#empty-btn").click(function () {
         fetch("http://localhost:8080/cart/empty");
@@ -39,12 +39,14 @@ $(document).ready(function () {
     })
 
     $("#checkOut-btn").click(function () {
-        fetch("http://localhost:8080/orders/create")
-            .then(response => response.json())
-            .then(data => localStorage.setItem("order", data))
-            .then(() => localStorage.setItem("cartCount",JSON.stringify(0)))
-            .then(() => window.location.href = "checkOut.html");
-    })
+        if (parseInt(localStorage.getItem("cartCount"))>0) {
+            fetch("http://localhost:8080/orders/create")
+                .then(response => response.json())
+                .then(data => localStorage.setItem("order", JSON.stringify(data)))
+                .then(() => localStorage.setItem("cartCount", JSON.stringify(0)))
+                .then(() => window.location.href = "checkOut.html");
+        }
+    });
 
 
     $("#logout-btn").click(function () {
