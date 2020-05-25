@@ -15,7 +15,7 @@ public class CurrentSession {
 
     private String id;
     private User user;
-    private List<CartItem> cart = new ArrayList<>();
+    private List<CartItem> cart;
 
     public CurrentSession() {
     }
@@ -27,6 +27,7 @@ public class CurrentSession {
     public void setUser(User user) {
         this.user = user;
         this.id = UUID.randomUUID().toString();
+        this.cart = new ArrayList<>();
     }
 
     public List<CartItem> getCart() {
